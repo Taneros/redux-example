@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.searchInput {
+  flex-grow: 1;
+  margin: 0 20px;
+  padding: 10px;
+}
+
+.cartButton {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

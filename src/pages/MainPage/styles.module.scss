@@ -1,0 +1,12 @@
+.mainPage {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pokemonGrid {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}

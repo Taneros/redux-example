@@ -1,0 +1,18 @@
+.productPage {
+  text-align: center;
+  padding: 40px;
+
+  button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
