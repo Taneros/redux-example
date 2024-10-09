@@ -1,8 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { FiltersState } from '../filters/filtersSlice';
-import { store } from '../../app/store';
-import { SearchState } from '../search/searchSlice';
 
 interface Pokemon {
   name: string;
@@ -29,29 +26,6 @@ export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async () 
   return response.data.results;
 });
 
-const applyFiltersAndSearch = ({
-  searchQuery,
-  filterQuery,
-}: {
-  searchQuery?: SearchState['query'];
-  filterQuery?: FiltersState['types'];
-}) => {
-  // const pokemonList = store.getState;
-  // return pokemonList
-  //   .filter((pokemon) => {
-  //     if (!searchQuery) {
-  //       return true;
-  //     }
-  //     return pokemon.name.toLowerCase().includes(searchQuery.toLowerCase());
-  //   })
-  //   .filter((pokemon) => {
-  //     if (!filterQuery || filterQuery.length === 0) {
-  //       return true;
-  //     }
-  //     filterQuery.includes(pokemon.url.slice(-1));
-  //   });
-};
-
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
@@ -70,21 +44,6 @@ const pokemonSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch Pokémon data';
       });
-
-    builder.addMatcher(
-      (action): action is PayloadAction<string> => action.type === 'search/setSearchQuery',
-      (state, action) => {
-        const searchQuery = action.payload;
-        state.filteredPokemons = applyFiltersAndSearch({ searchQuery });
-      },
-    );
-    //   .addMatcher(
-    //     (action): action is PayloadAction<string[]> => action.type === 'filters/setTypeFilter',
-    //     (state, action) => {
-    //       const filterQuery = action.payload;
-    //       state.filteredPokemons = applyFiltersAndSearch({ filterQuery });
-    //     },
-    //   );
   },
 });
 

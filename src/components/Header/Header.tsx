@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { setSearchQuery } from '../../features/search/searchSlice';
 import styles from './styles.module.scss';
+import { useAppDispatch } from '../../app/store';
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(event.target.value));
