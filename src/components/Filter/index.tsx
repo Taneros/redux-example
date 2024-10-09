@@ -10,8 +10,6 @@ export const Filter = () => {
 
   const dispatch = useAppDispatch();
   
-  console.log(`Filter/index.tsx - line: 12 ->> types`, types)
-  
   const handleChange = (number: string) => {
     setInput((prev) => prev.length > 0 ? [] : [number])
     

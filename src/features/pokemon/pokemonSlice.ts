@@ -50,28 +50,16 @@ const pokemonSlice = createSlice({
 });
 
 const filterType = (filterTypes: string[], pokemon: Pokemon) => {
-  console.log(`pokemon/pokemonSlice.ts - line: 78 ->> filterTypes`, filterTypes);
-  console.log(`pokemon/pokemonSlice.ts - line: 79 ->> pokemon`, pokemon);
-
   if (filterTypes.length === 0) {
     return true;
   }
 
   return filterTypes.some((filterType) => {
-    console.log(
-      `pokemon/pokemonSlice.ts - line: 83 ->> filterType, slice`,
-      filterType,
-      pokemon.url.split('/').join('').slice(-1),
-    );
-
     return filterType === pokemon.url.split('/').join('').slice(-1);
   });
 };
 
 const filterSearch = (searchQuery: string, pokemon: Pokemon) => {
-  console.log(`pokemon/pokemonSlice.ts - line: 97 ->> searchQuery`, searchQuery);
-  console.log(`pokemon/pokemonSlice.ts - line: 98 ->> pokemon`, pokemon);
-
   return pokemon.name.toLowerCase().includes(searchQuery.trim().toLowerCase());
 };
 
