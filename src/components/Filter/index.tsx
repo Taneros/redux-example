@@ -1,6 +1,7 @@
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { RootState, } from '../../app/store';
 import { setTypeFilter } from '../../features/filters/filtersSlice';
 import styles from './styles.module.scss';
-import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 
 export const Filter = () => {
   const { types } = useAppSelector((state: RootState) => state.filters)

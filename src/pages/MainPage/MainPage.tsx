@@ -4,12 +4,14 @@ import { RootState } from '../../app/store';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
 import styles from './styles.module.scss';
 import { Filter } from '../../components/Filter';
+import { selectPokemons } from '../../features/pokemon/pokemonSlice';
+import { useAppSelector } from '../../app/hooks';
 
 const MainPage: React.FC = () => {
-  const { filteredPokemons, loading, error } = useSelector((state: RootState) => state.pokemon);
+  const { loading, error } = useSelector((state: RootState) => state.pokemon);
 
 
-  
+  const filteredPokemons = useAppSelector(selectPokemons);
 
 
   if (loading) {

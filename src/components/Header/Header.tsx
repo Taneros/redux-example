@@ -1,7 +1,7 @@
 import React from 'react';
 import { setSearchQuery } from '../../features/search/searchSlice';
 import styles from './styles.module.scss';
-import { useAppDispatch } from '../../app/store';
+import { useAppDispatch } from '../../app/hooks';
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();

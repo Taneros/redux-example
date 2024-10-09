@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { RootState } from '../../app/store';
+import { createAppSelector } from '../../app/selectors';
 
 interface Pokemon {
   name: string;
@@ -46,5 +48,20 @@ const pokemonSlice = createSlice({
       });
   },
 });
+
+const filter = (searchQuery: string, filterTypes: string[], pokemon.pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())) => {
+  const matchSearch = searchQuery.length === '' ? true : ;
+};
+
+export const selectPokemons = createAppSelector(
+  (state: RootState) => state.search.query,
+  (state: RootState) => state.filters.types,
+  (state: RootState) => state.pokemon.pokemons,
+  (searchQuery, filterTypes, pokemons) => {
+    return pokemons.filter((pokemon) => {
+      return pokemon.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  },
+);
 
 export default pokemonSlice.reducer;
