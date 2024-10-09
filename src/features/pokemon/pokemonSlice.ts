@@ -49,8 +49,30 @@ const pokemonSlice = createSlice({
   },
 });
 
-const filter = (searchQuery: string, filterTypes: string[], pokemon.pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())) => {
-  const matchSearch = searchQuery.length === '' ? true : ;
+const filterType = (filterTypes: string[], pokemon: Pokemon) => {
+  console.log(`pokemon/pokemonSlice.ts - line: 78 ->> filterTypes`, filterTypes);
+  console.log(`pokemon/pokemonSlice.ts - line: 79 ->> pokemon`, pokemon);
+
+  if (filterTypes.length === 0) {
+    return true;
+  }
+
+  return filterTypes.some((filterType) => {
+    console.log(
+      `pokemon/pokemonSlice.ts - line: 83 ->> filterType, slice`,
+      filterType,
+      pokemon.url.split('/').join('').slice(-1),
+    );
+
+    return filterType === pokemon.url.split('/').join('').slice(-1);
+  });
+};
+
+const filterSearch = (searchQuery: string, pokemon: Pokemon) => {
+  console.log(`pokemon/pokemonSlice.ts - line: 97 ->> searchQuery`, searchQuery);
+  console.log(`pokemon/pokemonSlice.ts - line: 98 ->> pokemon`, pokemon);
+
+  return pokemon.name.toLowerCase().includes(searchQuery.trim().toLowerCase());
 };
 
 export const selectPokemons = createAppSelector(
@@ -58,9 +80,9 @@ export const selectPokemons = createAppSelector(
   (state: RootState) => state.filters.types,
   (state: RootState) => state.pokemon.pokemons,
   (searchQuery, filterTypes, pokemons) => {
-    return pokemons.filter((pokemon) => {
-      return pokemon.name.toLowerCase().includes(searchQuery.toLowerCase());
-    });
+    return pokemons
+      .filter((pokemon) => filterSearch(searchQuery, pokemon))
+      .filter((pokemon) => filterType(filterTypes, pokemon));
   },
 );
 
