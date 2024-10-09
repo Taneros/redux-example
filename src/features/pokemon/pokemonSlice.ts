@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { FiltersState } from '../filters/filtersSlice';
-import { RootState } from '../../app/store';
+import { store } from '../../app/store';
+import { SearchState } from '../search/searchSlice';
 
 interface Pokemon {
   name: string;
@@ -24,12 +25,31 @@ const initialState: PokemonState = {
 
 export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async () => {
   const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10');
+
   return response.data.results;
 });
 
-const applyFiltersAndSearch = (pokemonList: Pokemon[], searchQuery: string, filters: FiltersState) => {
-  return pokemonList
-    .filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()))
+const applyFiltersAndSearch = ({
+  searchQuery,
+  filterQuery,
+}: {
+  searchQuery?: SearchState['query'];
+  filterQuery?: FiltersState['types'];
+}) => {
+  // const pokemonList = store.getState;
+  // return pokemonList
+  //   .filter((pokemon) => {
+  //     if (!searchQuery) {
+  //       return true;
+  //     }
+  //     return pokemon.name.toLowerCase().includes(searchQuery.toLowerCase());
+  //   })
+  //   .filter((pokemon) => {
+  //     if (!filterQuery || filterQuery.length === 0) {
+  //       return true;
+  //     }
+  //     filterQuery.includes(pokemon.url.slice(-1));
+  //   });
 };
 
 const pokemonSlice = createSlice({
@@ -49,15 +69,22 @@ const pokemonSlice = createSlice({
       .addCase(fetchPokemons.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch Pokémon data';
-      })
-    .addMatcher(
-        (action): action is PayloadAction<string> => action.type === 'search/setSearchQuery',
-        (state, action) => {
-          const searchQuery = action.payload;
-          const filters = (state as RootState).filters;
-          state.filteredPokemons = applyFiltersAndSearch(state.pokemons, searchQuery, filters);
-        }
-    )
+      });
+
+    builder.addMatcher(
+      (action): action is PayloadAction<string> => action.type === 'search/setSearchQuery',
+      (state, action) => {
+        const searchQuery = action.payload;
+        state.filteredPokemons = applyFiltersAndSearch({ searchQuery });
+      },
+    );
+    //   .addMatcher(
+    //     (action): action is PayloadAction<string[]> => action.type === 'filters/setTypeFilter',
+    //     (state, action) => {
+    //       const filterQuery = action.payload;
+    //       state.filteredPokemons = applyFiltersAndSearch({ filterQuery });
+    //     },
+    //   );
   },
 });
 

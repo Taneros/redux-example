@@ -5,7 +5,7 @@ import PokemonCard from '../../components/PokemonCard/PokemonCard';
 import styles from './styles.module.scss';
 
 const MainPage: React.FC = () => {
-  const { filteredPokemons,  loading, error } = useSelector((state: RootState) => state.pokemon);
+  const { filteredPokemons, loading, error } = useSelector((state: RootState) => state.pokemon);
 
   if (loading) {
     return <p>Loading...</p>;

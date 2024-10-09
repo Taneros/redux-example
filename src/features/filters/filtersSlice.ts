@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface FiltersState {
-  types: string[]; 
+  types: string[];
   powerRange: [number, number];
 }
 
